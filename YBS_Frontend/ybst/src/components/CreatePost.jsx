@@ -4,10 +4,9 @@ import axios from "axios";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button } from "./Button";
-
 
 function CreatePost() {
   const [prompt, setPrompt] = useState("");
@@ -65,18 +64,87 @@ function CreatePost() {
     }
   };
 
-  useEffect(() => {
-    let token = sessionStorage.getItem('Token')
-    if (token) {
-        getData()
-    }
-    if (!token) {
-        router.push('/login')
-    }
-}, [])
+  // useEffect(() => {
+  //   let token = sessionStorage.getItem("Token");
+  //   if (token) {
+  //     getData();
+  //   }
+  //   if (!token) {
+  //     router.push("/login");
+  //   }
+  // }, []);
 
+  // const cohere = require("cohere-ai");
+  // cohere.init(process.env.NEXT_APP_COHERE);
+  // const cohereGetParagraphGenerator = async () => {
+  //   const response = await cohere.generate({
+  //     model: "command-xlarge-nightly",
+  //     prompt: prompt,
+  //     max_tokens: 300,
+  //     temperature: 0.9,
+  //     k: 0,
+  //     p: 0.75,
+  //     frequency_penalty: 0,
+  //     presence_penalty: 0,
+  //     stop_sequences: [],
+  //     return_likelihoods: "NONE",
+  //   });
+  //   setResult(`${response.body.generations.text}`);
+  // };
+
+  // const cohereGetLinkedInPostGenerator = async () => {
+  //   const response = await cohere.generate({
+  //     model: "command-xlarge-nightly",
+  //     prompt: prompt,
+  //     max_tokens: 300,
+  //     temperature: 0.9,
+  //     k: 0,
+  //     p: 0.75,
+  //     frequency_penalty: 0,
+  //     presence_penalty: 0,
+  //     stop_sequences: [],
+  //     return_likelihoods: "NONE",
+  //   });
+  //   setResult(`${response.body.generations[0].text}`);
+  // };
+
+  // const cohereBlogPostGenerator = async () => {
+  //   const response = await cohere.generate({
+  //     model: "command-xlarge-nightly",
+  //     prompt: prompt,
+  //     max_tokens: 300,
+  //     temperature: 0.9,
+  //     k: 0,
+  //     p: 0.75,
+  //     frequency_penalty: 0,
+  //     presence_penalty: 0,
+  //     stop_sequences: [],
+  //     return_likelihoods: "NONE",
+  //   });
+  //   setResult(`${response.body.generations[0].text}`);
+  // };
+
+  // const cohereBlogPostIntro = async () => {
+  //   const response = await cohere.generate({
+  //     model: "command-xlarge-nightly",
+  //     prompt: prompt,
+  //     max_tokens: 300,
+  //     temperature: 0.9,
+  //     k: 0,
+  //     p: 0.75,
+  //     frequency_penalty: 0,
+  //     presence_penalty: 0,
+  //     stop_sequences: [],
+  //     return_likelihoods: "NONE",
+  //   });
+  //   setResult(`${response.body.generations[0].text}`);
+  // };
+
+  let contentpost = 0;
+  contentpost = result;
+  console.log(contentpost);
   const cohere = require("cohere-ai");
-  cohere.init(process.env.NEXT_APP_COHERE);
+  cohere.init("vPeFqvj73Z7fMyFDb99H27sbt1fSIQN44uqCu5TG"); // This is your trial API key
   const cohereGetParagraphGenerator = async () => {
     const response = await cohere.generate({
       model: "command-xlarge-nightly",
@@ -90,7 +158,7 @@ function CreatePost() {
       stop_sequences: [],
       return_likelihoods: "NONE",
     });
-    setResult(`${response.body.generations.text}`);
+    setResult(`${response.body.generations[0].text}`);
   };
 
   const cohereGetLinkedInPostGenerator = async () => {
@@ -141,12 +209,8 @@ function CreatePost() {
     setResult(`${response.body.generations[0].text}`);
   };
 
-  let contentpost = 0;
-  contentpost = result;
-  console.log(contentpost);
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-4 bg-page-gradient py-6">
+    <div className="flex flex-col items-center  min-h-screen gap-4 bg-page-gradient py-16">
       <h1 className="text-4xl font-sans">AI Image Generator</h1>
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-4">
@@ -222,12 +286,12 @@ function CreatePost() {
             <span>Blog Intro</span>
           </Button>
         </div>
-        <div className="p-auto">
-          <>
-            <p className="p-10 inline-flex">{contentpost}</p>
-          </>
-        </div>
       </div>
+      <>
+        <p className="p-5 inline-flex text-lg sm:w-4 lg:w-[90%]">
+          {contentpost}
+        </p>
+      </>
     </div>
   );
 }

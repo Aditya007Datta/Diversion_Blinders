@@ -28,9 +28,11 @@ const About = () => {
       <div className="flex justify-center">
         <Lottie animationData={teamAnimation} loop={true} />
       </div>
-      <HeroSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
-        We are a bunch of tech enthusiasts on a journey to explore the plethora of stacks in technology and aim to provide effective solutions to modern-day problems!
-        <br className="hidden md:block" /> 
+      <HeroSubtitle className="translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms] p-16">
+        We are a bunch of tech enthusiasts on a journey to explore the plethora
+        of stacks in technology and aim to provide effective solutions to
+        modern-day problems!
+        <br className="hidden md:block" />
       </HeroSubtitle>
     </Hero>
   );
